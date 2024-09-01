@@ -1,17 +1,31 @@
-
 install.packages("dplyr")
 install.packages("readxl")
-
+install.packages("writexl")
 library(dplyr)
 library(readxl)
-
+library(writexl)
 df <- read_excel('/Users/shenxujie/Desktop/DATA2x02_survey_2024_Responses.xlsx', sheet = 'Form responses 1')
-
 df_cleaned <- df %>%
   select(
+    Timestamp = `Timestamp`,  
     weekly_food_spend = `What is the average amount of money you spend each week on food/beverages?`,
     wam = `What is your WAM (weighted average mark)?`,
     weekly_paid_work_hours = `How many hours a week (on average) do you work in paid employment?`,
     weekly_study_hours = `How many hours a week do you spend studying?`
   )
+
+df_cleaned <- df_cleaned %>%
+  filter(
+    !is.na(Timestamp),  
+    !is.na(weekly_food_spend),  
+    !is.na(wam),  
+    !is.na(weekly_paid_work_hours),  
+    !is.na(weekly_study_hours)  
+  )
+
+write_xlsx(df_cleaned, path = "/Users/shenxujie/Desktop/cleaned_Data.xlsx")
 head(df_cleaned)
+
+
+
+
