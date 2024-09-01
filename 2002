@@ -1,0 +1,17 @@
+
+install.packages("dplyr")
+install.packages("readxl")
+
+library(dplyr)
+library(readxl)
+
+df <- read_excel('/Users/shenxujie/Desktop/DATA2x02_survey_2024_Responses.xlsx', sheet = 'Form responses 1')
+
+df_cleaned <- df %>%
+  select(
+    weekly_food_spend = `What is the average amount of money you spend each week on food/beverages?`,
+    wam = `What is your WAM (weighted average mark)?`,
+    weekly_paid_work_hours = `How many hours a week (on average) do you work in paid employment?`,
+    weekly_study_hours = `How many hours a week do you spend studying?`
+  )
+head(df_cleaned)
